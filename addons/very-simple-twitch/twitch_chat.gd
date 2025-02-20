@@ -21,7 +21,6 @@ var caches := {
 	RequestType.BADGE: {},
 	RequestType.BADGE_MAPPING: {}
 }
-
 var _client_id: String
 var _twitch_chat_url: String
 var _twitch_chat_port: int
@@ -61,7 +60,13 @@ func _process(_delta: float):
 				print("WebSocket closed with code: %d, reason %s. Clean: %s" % [code, reason, code != -1])
 				print("Reconnecting")
 				start_chat_client()
-
+			if !WebSocketPeer.STATE_CONNECTING and _hasConnected:
+				onChatConnected()
+				onReceivedData(_chatClient.get_packet())
+				print("Connecting..")
+			else: 
+				!WebSocketPeer.STATE_CLOSED
+				print("Connection Lost, WebSocket Has Been Closed") 
 func start_chat_client():
 	get_settings()
 	if _chatClient:

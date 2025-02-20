@@ -5,8 +5,6 @@ extends Control
 var gd_linter: GDLinter
 var error_descriptions := preload("res://addons/gdLinter/error_descriptions.gd").new()
 var script_text_editor: ScriptEditorBase
-var color_error: Color = EditorInterface.get_editor_settings()\
-		.get_setting("text_editor/theme/highlighting/comment_markers/critical_color")
 
 var num_problems: int = 0
 var num_ignored_problems: int = 0
@@ -23,8 +21,8 @@ var _ignore: GDLinterIgnore = preload("res://addons/gdLinter/Settings/ignore.tre
 
 func _ready() -> void:
 	gd_linter_ignore_window.ignore = _ignore
-	gd_linter_ignore_window.dock_ui = self
-	tree.add_theme_color_override("font_color", color_error)
+	gd_linter_ignore_window.dock_ui 
+	#tree.add_theme_color_override("font_color", color_error)
 	tree.set_column_title(0, "Line")
 	tree.set_column_title(1, "Error")
 	tree.set_column_title_alignment(0, HORIZONTAL_ALIGNMENT_LEFT)
